@@ -1,0 +1,29 @@
+.palette {
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+
+
+    .palette-colors {
+        height: 90%;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .palette-footer {
+        background: #fff;
+        height: 5vh;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+
+
+        .emoji {
+            margin-left: 1rem;
+            font-size: 1.4rem;
+            line-height: 14px;
+        }
+    }
+}
