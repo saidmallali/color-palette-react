@@ -6,22 +6,42 @@ import PaletteList from './PaletteList'
 import seedColors from './seedColors.js'
 import SingleColorPalette from './SingleColorPalette'
 import { generatePalette } from './colorHelpers';
+import NewPaletteForm from './NewPaletteForm';
 
 import './App.css';
 
 class App extends React.Component {
+  constructor(props){
+    super(props);
+
+    this.savePalette = this.savePalette.bind(this)
+    this.findPalette = this.findPalette.bind(this)
+
+    this.state = {
+      palettes: seedColors
+    }
+  }
+
 
   findPalette(id){
-    return seedColors.find(function(palette){
+    return this.state.palettes.find(function(palette){
       return palette.id === id;
     })
   }
 
+  savePalette(newPalette){
+
+    this.setState({
+      palettes: [...this.state.palettes, newPalette]
+
+    })
+  }
   render(){
 
     return (
       <Switch>
-          <Route exact path='/' render={() => <PaletteList palettes={seedColors}/>} />
+          <Route exact path='/palette/new' render={(...routerProps) => <NewPaletteForm routerProps={routerProps} palettes={this.state.palettes} savePalette={this.savePalette} />}/>
+          <Route exact path='/' render={() => <PaletteList palettes={this.state.palettes}/>} />
           <Route exact path='/palette/:id' render={(routerProps) => <Palette palette={generatePalette(this.findPalette(routerProps.match.params.id))}/>}  />
           <Route
             exact 
